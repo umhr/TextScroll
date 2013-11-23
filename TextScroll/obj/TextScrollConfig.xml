@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'2013/11/23'</value>
+      <value>'2013/11/24'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -47,6 +47,7 @@
       <path-element>C:\Users\宗士\SkyDrive\studies\1311\TextScroll\lib\Hi-ReS-Stats.swc</path-element>
       <path-element>C:\Users\宗士\SkyDrive\studies\1311\TextScroll\lib\ND2D_final.swc</path-element>
       <path-element>C:\Users\宗士\SkyDrive\studies\1311\TextScroll\lib\tweener.swc</path-element>
+      <path-element>C:\Users\宗士\SkyDrive\studies\1311\TextScroll\lib\IPAexm00201_DF3.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>

@@ -61,6 +61,7 @@
     <element path="lib\Hi-ReS-Stats.swc" />
     <element path="lib\ND2D_final.swc" />
     <element path="lib\tweener.swc" />
+    <element path="lib\IPAexm00201_DF3.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

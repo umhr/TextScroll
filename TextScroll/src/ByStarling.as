@@ -16,8 +16,12 @@ package
 	{
 		private var _starling:Starling;
 		private var _speed:Number;
-		public function ByStarling(speed:Number) 
+		private var _isInt:Boolean;
+		private var _txInt:int = 0;
+		private var _txNumber:Number = 0;
+		public function ByStarling(speed:Number, isInt:Boolean) 
 		{
+			_isInt = isInt;
 			_speed = speed;
 			init();
 		}
@@ -33,8 +37,8 @@ package
 			// entry point
 			
 			var textField:TextField = new TextField();
-			textField.defaultTextFormat = new TextFormat(new Migu1C_Regular_DF3().fontName, 80, 0xFFFFFF);
-			textField.text = "ゆく河の流れは絶えずして、しかももとの水にあらず。";
+			textField.defaultTextFormat = new TextFormat(new IPAexm00201_DF3().fontName, 80, 0xFFFFFF);
+			textField.text = "森鴎麒麟淡麗蒙殲滅懺癇謬癪爵健康優薔薇瑠璃";
 			textField.embedFonts = true;
 			textField.width = textField.textWidth;
 			
@@ -45,6 +49,7 @@ package
 			MainView.speed = _speed;
 			MainView.frameRate = stage.frameRate;
 			MainView.stageWidth = stage.stageWidth;
+			MainView.isInt = _isInt;
 			_starling = new Starling(MainView, stage, null, null);
             _starling.enableErrorChecking = false;
             _starling.start();

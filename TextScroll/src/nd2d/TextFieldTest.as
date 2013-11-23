@@ -18,12 +18,12 @@ package nd2d {
 			_stageWidth = stageWidth;
 			
 			_textField2D = new TextField2D();
-			_textField2D.textFormat = new TextFormat(new Migu1C_Regular_DF3().fontName, 80, 0xFFFFFF);
+			_textField2D.textFormat = new TextFormat(new IPAexm00201_DF3().fontName, 80, 0xFFFFFF);
 			_textField2D.embedFonts = true;
 			_textField2D.align = "left";
-			_textField2D.text = "ゆく河の流れは絶えずして、しかももとの水にあらず。";
+			_textField2D.text = "森鴎麒麟淡麗蒙殲滅懺癇謬癪爵健康優薔薇瑠璃";
 			_textField2D.x = _stageWidth;
-			_textField2D.y = 60;// Math.floor(_textField2D.height * 0.5);
+			_textField2D.y = 60;
 			addChild(_textField2D);
 		}
 		

@@ -42,18 +42,22 @@ package
 			addChild(_statsStage);
 			
 			new PushButton(this, 16, 150, "TextField.x by Enterframe", onPush).width = 200;
-			new PushButton(this, 16, 175, "Bitmap.x by Enterframe", onPush).width = 200;
-			new PushButton(this, 16, 200, "BitmapData.draw by Matrix", onPush).width = 200;
+			new PushButton(this, 16, 175, "TextField.x int by Enterframe", onPush).width = 200;
+			new PushButton(this, 16, 200, "Bitmap.x by Enterframe", onPush).width = 200;
+			new PushButton(this, 16, 225, "Bitmap.x int by Enterframe", onPush).width = 200;
+			new PushButton(this, 16, 250, "BitmapData.draw by Matrix", onPush).width = 200;
+			new PushButton(this, 16, 275, "BitmapData.draw int by Matrix", onPush).width = 200;
 			
-			new PushButton(this, 16, 225, "Starling Image.x by Enterframe", onPush).width = 200;
+			new PushButton(this, 16, 300, "Starling Image.x by Enterframe", onPush).width = 200;
+			new PushButton(this, 16, 325, "Starling Image.x int by Enterframe", onPush).width = 200;
 			//new PushButton(this, 16, 250, "by ND2D", onPush).width = 200;
 			
-			new PushButton(this, 232, 150, "TextField.x by BetweenAS3", onPush).width = 200;
-			new PushButton(this, 232, 175, "TextField.x by Tween24", onPush).width = 200;
-			new PushButton(this, 232, 200, "TextField.x by TweenMax", onPush).width = 200;
-			new PushButton(this, 232, 225, "TextField.x by TweenMax useFrames", onPush).width = 200;
-			new PushButton(this, 232, 250, "TextField.x by Tweener", onPush).width = 200;
-			new PushButton(this, 232, 275, "TextField.x by Tweener useFrames", onPush).width = 200;
+			new PushButton(this, 232, 150, "Bitmap.x by BetweenAS3", onPush).width = 200;
+			new PushButton(this, 232, 175, "Bitmap.x by Tween24", onPush).width = 200;
+			new PushButton(this, 232, 200, "Bitmap.x by TweenMax", onPush).width = 200;
+			new PushButton(this, 232, 225, "Bitmap.x by TweenMax useFrames", onPush).width = 200;
+			new PushButton(this, 232, 250, "Bitmap.x by Tweener", onPush).width = 200;
+			new PushButton(this, 232, 275, "Bitmap.x by Tweener useFrames", onPush).width = 200;
 			
 			new Label(this, 448, 150, "Speed:").textField.textColor = 0xFFFFFF;
 			new NumericStepper(this, 498, 150, onSetSpeed).value = 200;
@@ -63,9 +67,8 @@ package
 			
 			_label = new Label(this, 16, 110);
 			_label.textField.textColor = 0xFFFFFF;
-			_label.text = "TextField.x by Enterframe";
 			
-			new Label(this, 16, 275, "FlashPlayer " + Capabilities.version);
+			new Label(this, 448, 325, "FlashPlayer " + Capabilities.version);
 			
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
 			
@@ -74,9 +77,10 @@ package
 		
 		private var _typeCount:int = 0;
 		private var _typeList:Array/*String*/ = [
-			"TextField.x by Enterframe", "Bitmap.x by Enterframe", "BitmapData.draw by Matrix", "Starling Image.x by Enterframe",
-			"TextField.x by BetweenAS3", "TextField.x by Tween24", "TextField.x by TweenMax", "TextField.x by TweenMax useFrames",
-			"TextField.x by Tweener", "TextField.x by Tweener useFrames"];
+			"TextField.x by Enterframe", "TextField.x int by Enterframe", "Bitmap.x by Enterframe", "Bitmap.x int by Enterframe",
+			"BitmapData.draw by Matrix", "BitmapData.draw int by Matrix", "Starling Image.x by Enterframe", "Starling Image.x int by Enterframe",
+			"Bitmap.x by BetweenAS3", "Bitmap.x by Tween24", "Bitmap.x by TweenMax", "Bitmap.x by TweenMax useFrames",
+			"Bitmap.x by Tweener", "Bitmap.x by Tweener useFrames"];
 			
 		private function keyUp(e:KeyboardEvent):void 
 		{
@@ -159,36 +163,48 @@ package
 			switch (label) 
 			{
 				case "TextField.x by Enterframe":
-					_scrollStage.addChild(new ByEnterFrame(_speed));
+					_scrollStage.addChild(new ByEnterFrame(_speed, false));
+				break;
+				case "TextField.x int by Enterframe":
+					_scrollStage.addChild(new ByEnterFrame(_speed, true));
 				break;
 				case "Bitmap.x by Enterframe":
-					_scrollStage.addChild(new ByBitmap(_speed));
+					_scrollStage.addChild(new ByBitmap(_speed, false));
+				break;
+				case "Bitmap.x int by Enterframe":
+					_scrollStage.addChild(new ByBitmap(_speed, true));
 				break;
 				case "BitmapData.draw by Matrix":
-					_scrollStage.addChild(new ByDrawMatrix(_speed));
+					_scrollStage.addChild(new ByDrawMatrix(_speed, false));
+				break;
+				case "BitmapData.draw int by Matrix":
+					_scrollStage.addChild(new ByDrawMatrix(_speed, true));
 				break;
 				case "Starling Image.x by Enterframe":
-					_scrollStage.addChild(new ByStarling(_speed));
+					_scrollStage.addChild(new ByStarling(_speed, false));
+				break;
+				case "Starling Image.x int by Enterframe":
+					_scrollStage.addChild(new ByStarling(_speed, true));
 				break;
 				case "by ND2D":
 					_scrollStage.addChild(new ByND2D(_speed));
 				break;
-				case "TextField.x by BetweenAS3":
+				case "Bitmap.x by BetweenAS3":
 					_scrollStage.addChild(new ByBetweenAS3(_speed));
 				break;
-				case "TextField.x by Tween24":
+				case "Bitmap.x by Tween24":
 					_scrollStage.addChild(new ByTween24(_speed));
 				break;
-				case "TextField.x by TweenMax":
+				case "Bitmap.x by TweenMax":
 					_scrollStage.addChild(new ByTweenMax(_speed));
 				break;
-				case "TextField.x by TweenMax useFrames":
+				case "Bitmap.x by TweenMax useFrames":
 					_scrollStage.addChild(new ByTweenMax_useFrames(_speed));
 				break;
-				case "TextField.x by Tweener":
+				case "Bitmap.x by Tweener":
 					_scrollStage.addChild(new ByTweener(_speed));
 				break;
-				case "TextField.x by Tweener useFrames":
+				case "Bitmap.x by Tweener useFrames":
 					_scrollStage.addChild(new ByTweener_useFrames(_speed));
 				break;
 				default:

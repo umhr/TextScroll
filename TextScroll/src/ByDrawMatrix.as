@@ -17,10 +17,13 @@ package
 	{
 		private var _textField:TextField;
 		private var _bitmap:Bitmap;
-		private var _tx:Number = 0;
 		private var _speed:Number;
-		public function ByDrawMatrix(speed:Number) 
+		private var _isInt:Boolean;
+		private var _txInt:int = 0;
+		private var _txNumber:Number = 0;
+		public function ByDrawMatrix(speed:Number, isInt:Boolean) 
 		{
+			_isInt = isInt;
 			_speed = speed;
 			init();
 		}
@@ -36,13 +39,13 @@ package
 			// entry point
 			
 			_textField = new TextField();
-			_textField.defaultTextFormat = new TextFormat(new Migu1C_Regular_DF3().fontName, 80, 0xFFFFFF);
-			_textField.text = "ゆく河の流れは絶えずして、しかももとの水にあらず。";
+			_textField.defaultTextFormat = new TextFormat(new IPAexm00201_DF3().fontName, 80, 0xFFFFFF);
+			_textField.text = "森鴎麒麟淡麗蒙殲滅懺癇謬癪爵健康優薔薇瑠璃";
 			_textField.embedFonts = true;
 			_textField.width = _textField.textWidth;
 			_textField.mouseEnabled = false;
 			_textField.cacheAsBitmap = true;
-			_tx = stage.stageWidth;
+			_txInt = _txNumber = stage.stageWidth;
 			
 			_bitmap = new Bitmap(new BitmapData(stage.stageWidth, _textField.height, false, 0x00000000), PixelSnapping.NEVER);
 			addChild(_bitmap);
@@ -69,13 +72,18 @@ package
 		
 		private function enterFrame(e:Event):void 
 		{
-			if(_textField){
-				_tx -= _speed / stage.frameRate;
-				if (_tx < -_textField.textWidth) {
-					_tx = stage.stageWidth;
-				}
+			if (_textField) {
 				_bitmap.bitmapData.fillRect(_bitmap.bitmapData.rect, 0x00000000);
-				_bitmap.bitmapData.draw(_textField, new Matrix(1, 0, 0, 1, _tx, 0));
+				if(_isInt){
+					_txInt -= Math.round(_speed / stage.frameRate);
+					_bitmap.bitmapData.draw(_textField, new Matrix(1, 0, 0, 1, _txInt, 0));
+				}else {
+					_txNumber -= _speed / stage.frameRate;
+					_bitmap.bitmapData.draw(_textField, new Matrix(1, 0, 0, 1, _txNumber, 0));
+				}
+				if (_txInt < -_textField.textWidth || _txNumber < -_textField.textWidth) {
+					_txInt = _txNumber = stage.stageWidth;
+				}
 			}
 		}
 	}

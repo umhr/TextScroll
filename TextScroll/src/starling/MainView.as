@@ -19,14 +19,18 @@ package starling
 		static public var speed:Number;
 		static public var frameRate:Number;
 		static public var stageWidth:int;
+		static public var isInt:Boolean;
+		private var _txInt:int = 0;
+		private var _txNumber:Number = 0;
 		public function MainView() 
 		{
 			super();
 			
 			addEventListener(Event.ENTER_FRAME, enterFrame);
 			
+			_txInt = _txNumber = stageWidth;
 			_image = new Image(Texture.fromBitmapData(bitmapData));
-			_image.x = stageWidth;
+			_image.x = _txInt;
 			addChild(_image);
 			
 			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
@@ -41,9 +45,15 @@ package starling
 		
 		private function enterFrame(e:Event):void 
 		{
-			_image.x -= speed / frameRate;
-			if (_image.x < -_image.width) {
-				_image.x = stageWidth;
+			if(isInt){
+				_txInt -= Math.round(speed / frameRate);
+				_image.x = _txInt;
+			}else {
+				_txNumber -= speed / frameRate;
+				_image.x = _txNumber;
+			}
+			if (_txInt < -_image.width || _txNumber < -_image.width) {
+				_txInt = _txNumber = stageWidth;
 			}
 		}
 	}

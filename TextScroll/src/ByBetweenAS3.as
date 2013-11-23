@@ -1,6 +1,8 @@
 package  
 {
 	
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
@@ -13,7 +15,7 @@ package
 	 */
 	public class ByBetweenAS3 extends Sprite 
 	{
-		private var _textField:TextField;
+		private var _bitmapWrapper:Bitmap;
 		private var _t:ITween;
 		private var _speed:Number;
 		public function ByBetweenAS3(speed:Number) 
@@ -32,14 +34,18 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			// entry point
 			
-			_textField = new TextField();
-			_textField.defaultTextFormat = new TextFormat(new Migu1C_Regular_DF3().fontName, 80, 0xFFFFFF);
-			_textField.text = "ゆく河の流れは絶えずして、しかももとの水にあらず。";
-			_textField.embedFonts = true;
-			_textField.width = _textField.textWidth;
-			_textField.mouseEnabled = false;
-			_textField.cacheAsBitmap = true;
-			addChild(_textField);
+			var textField:TextField = new TextField();
+			textField.defaultTextFormat = new TextFormat(new IPAexm00201_DF3().fontName, 80, 0xFFFFFF);
+			textField.text = "森鴎麒麟淡麗蒙殲滅懺癇謬癪爵健康優薔薇瑠璃";
+			textField.embedFonts = true;
+			textField.width = textField.textWidth;
+			textField.mouseEnabled = false;
+			textField.cacheAsBitmap = true;
+			
+			_bitmapWrapper = new Bitmap(new BitmapData(textField.width, textField.height, false, 0x00000000));
+			_bitmapWrapper.bitmapData.draw(textField);
+			addChild(_bitmapWrapper);
+			textField = null;
 			
 			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
 			
@@ -48,11 +54,11 @@ package
 		
 		private function doTween():void 
 		{
-			var time:Number = (_textField.width + stage.stageWidth) / _speed;
+			var time:Number = (_bitmapWrapper.width + stage.stageWidth) / _speed;
 			var fromX:Number =  stage.stageWidth;
-			var toX:Number =  -_textField.textWidth;
+			var toX:Number =  -_bitmapWrapper.width;
 			
-			_t = BetweenAS3.tween(_textField, { x: toX }, { x:fromX }, time);
+			_t = BetweenAS3.tween(_bitmapWrapper, { x: toX }, { x:fromX }, time);
 			_t.stopOnComplete = false;
 			_t.play();
 		}
@@ -65,7 +71,8 @@ package
 				_t.stop();
 			}
 			
-			removeChild(_textField);
+			removeChild(_bitmapWrapper);
+			_bitmapWrapper = null;
 		}
 		
 	}

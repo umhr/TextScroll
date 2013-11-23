@@ -15,8 +15,12 @@ package
 	{
 		private var _bitmap:Bitmap;
 		private var _speed:Number;
-		public function ByBitmap(speed:Number) 
+		private var _isInt:Boolean;
+		private var _txInt:int = 0;
+		private var _txNumber:Number = 0;
+		public function ByBitmap(speed:Number, isInt:Boolean) 
 		{
+			_isInt = isInt;
 			_speed = speed;
 			init();
 		}
@@ -31,15 +35,16 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			// entry point
 			
+			_txInt = _txNumber = stage.stageWidth;
 			var textField:TextField = new TextField();
-			textField.defaultTextFormat = new TextFormat(new Migu1C_Regular_DF3().fontName, 80, 0xFFFFFF);
-			textField.text = "ゆく河の流れは絶えずして、しかももとの水にあらず。";
+			textField.defaultTextFormat = new TextFormat(new IPAexm00201_DF3().fontName, 80, 0xFFFFFF);
+			textField.text = "森鴎麒麟淡麗蒙殲滅懺癇謬癪爵健康優薔薇瑠璃";
 			textField.embedFonts = true;
 			textField.width = textField.textWidth;
 			
 			_bitmap = new Bitmap(new BitmapData(textField.width, textField.height, false, 0x00000000));
 			_bitmap.bitmapData.draw(textField);
-			_bitmap.x = stage.stageWidth;
+			_bitmap.x = _txInt;
 			addChild(_bitmap);
 			
 			textField = null;
@@ -65,10 +70,16 @@ package
 		
 		private function enterFrame(e:Event):void 
 		{
-			if(_bitmap){
-				_bitmap.x -= _speed / stage.frameRate;
-				if (_bitmap.x < -_bitmap.width) {
-					_bitmap.x = stage.stageWidth;
+			if (_bitmap) {
+				if(_isInt){
+					_txInt -= Math.round(_speed / stage.frameRate);
+					_bitmap.x = _txInt;
+				}else {
+					_txNumber -= _speed / stage.frameRate;
+					_bitmap.x = _txNumber;
+				}
+				if (_txInt < -_bitmap.width || _txNumber < -_bitmap.width) {
+					_txInt = _txNumber = stage.stageWidth;
 				}
 			}
 		}

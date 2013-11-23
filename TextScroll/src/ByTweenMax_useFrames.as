@@ -4,6 +4,8 @@ package
 	import com.greensock.easing.Ease;
 	import com.greensock.easing.Linear;
 	import com.greensock.TweenMax;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
@@ -14,7 +16,7 @@ package
 	 */
 	public class ByTweenMax_useFrames extends Sprite 
 	{
-		private var _textField:TextField;
+		private var _bitmapWrapper:Bitmap;
 		private var _speed:Number;
 		public function ByTweenMax_useFrames(speed:Number) 
 		{
@@ -32,14 +34,16 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			// entry point
 			
-			_textField = new TextField();
-			_textField.defaultTextFormat = new TextFormat(new Migu1C_Regular_DF3().fontName, 80, 0xFFFFFF);
-			_textField.text = "ゆく河の流れは絶えずして、しかももとの水にあらず。";
-			_textField.embedFonts = true;
-			_textField.width = _textField.textWidth;
-			_textField.mouseEnabled = false;
-			_textField.cacheAsBitmap = true;
-			addChild(_textField);
+			var textField:TextField = new TextField();
+			textField.defaultTextFormat = new TextFormat(new IPAexm00201_DF3().fontName, 80, 0xFFFFFF);
+			textField.text = "森鴎麒麟淡麗蒙殲滅懺癇謬癪爵健康優薔薇瑠璃";
+			textField.embedFonts = true;
+			textField.width = textField.textWidth;
+			
+			_bitmapWrapper = new Bitmap(new BitmapData(textField.width, textField.height, false, 0x00000000));
+			_bitmapWrapper.bitmapData.draw(textField);
+			addChild(_bitmapWrapper);
+			textField = null;
 			
 			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
 			
@@ -48,18 +52,19 @@ package
 		
 		private function doTween():void 
 		{
-			var time:Number = stage.frameRate * (_textField.width + stage.stageWidth) / _speed;
+			var time:Number = stage.frameRate * (_bitmapWrapper.width + stage.stageWidth) / _speed;
 			var fromX:Number =  stage.stageWidth;
-			var toX:Number =  -_textField.textWidth;
+			var toX:Number =  -_bitmapWrapper.width;
 			
-			TweenMax.fromTo(_textField, time, { x:fromX}, { x:toX, ease:Linear.ease, useFrames:true } ).play().repeat(-1);
+			TweenMax.fromTo(_bitmapWrapper, time, { x:fromX}, { x:toX, ease:Linear.ease, useFrames:true } ).play().repeat(-1);
 		}
 		
 		private function removedFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
 			TweenMax.killAll();
-			removeChild(_textField);
+			removeChild(_bitmapWrapper);
+			_bitmapWrapper = null;
 		}
 		
 	}

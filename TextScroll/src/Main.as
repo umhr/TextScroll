@@ -9,7 +9,7 @@ package
 	 * ...
 	 * @author umhr
 	 */
-	[SWF(width = 592, height = 300, backgroundColor = 0x000000, frameRate = 60)]
+	[SWF(width = 592, height = 350, backgroundColor = 0x000000, frameRate = 60)]
 	public class Main extends Sprite 
 	{
 		
