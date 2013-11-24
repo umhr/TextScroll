@@ -1,8 +1,8 @@
 package  
 {
 	
-	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
@@ -15,7 +15,7 @@ package
 	 */
 	public class ByBetweenAS3 extends Sprite 
 	{
-		private var _bitmapWrapper:Bitmap;
+		private var _shape:Shape;
 		private var _t:ITween;
 		private var _speed:Number;
 		public function ByBetweenAS3(speed:Number) 
@@ -42,9 +42,16 @@ package
 			textField.mouseEnabled = false;
 			textField.cacheAsBitmap = true;
 			
-			_bitmapWrapper = new Bitmap(new BitmapData(textField.width, textField.height, false, 0x00000000));
-			_bitmapWrapper.bitmapData.draw(textField);
-			addChild(_bitmapWrapper);
+			var bitmapData:BitmapData = new BitmapData(textField.width, textField.height, false, 0x00000000);
+			bitmapData.draw(textField);
+			
+			_shape = new Shape();
+			_shape.graphics.beginBitmapFill(bitmapData, null, false, true);
+			_shape.graphics.drawRect(0, 0, bitmapData.width, bitmapData.height);
+			_shape.graphics.endFill();
+			addChild(_shape);
+			
+			bitmapData = null;
 			textField = null;
 			
 			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
@@ -54,11 +61,11 @@ package
 		
 		private function doTween():void 
 		{
-			var time:Number = (_bitmapWrapper.width + stage.stageWidth) / _speed;
+			var time:Number = (_shape.width + stage.stageWidth) / _speed;
 			var fromX:Number =  stage.stageWidth;
-			var toX:Number =  -_bitmapWrapper.width;
+			var toX:Number =  -_shape.width;
 			
-			_t = BetweenAS3.tween(_bitmapWrapper, { x: toX }, { x:fromX }, time);
+			_t = BetweenAS3.tween(_shape, { x: toX }, { x:fromX }, time);
 			_t.stopOnComplete = false;
 			_t.play();
 		}
@@ -71,8 +78,8 @@ package
 				_t.stop();
 			}
 			
-			removeChild(_bitmapWrapper);
-			_bitmapWrapper = null;
+			removeChild(_shape);
+			_shape = null;
 		}
 		
 	}

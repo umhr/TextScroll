@@ -1,11 +1,10 @@
 package  
 {
 	
-	import com.greensock.easing.Ease;
 	import com.greensock.easing.Linear;
 	import com.greensock.TweenMax;
-	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
@@ -16,7 +15,7 @@ package
 	 */
 	public class ByTweenMax extends Sprite 
 	{
-		private var _bitmapWrapper:Bitmap;
+		private var _shape:Shape;
 		private var _speed:Number;
 		public function ByTweenMax(speed:Number) 
 		{
@@ -40,9 +39,16 @@ package
 			textField.embedFonts = true;
 			textField.width = textField.textWidth;
 			
-			_bitmapWrapper = new Bitmap(new BitmapData(textField.width, textField.height, false, 0x00000000));
-			_bitmapWrapper.bitmapData.draw(textField);
-			addChild(_bitmapWrapper);
+			var bitmapData:BitmapData = new BitmapData(textField.width, textField.height, false, 0x00000000);
+			bitmapData.draw(textField);
+			
+			_shape = new Shape();
+			_shape.graphics.beginBitmapFill(bitmapData, null, false, true);
+			_shape.graphics.drawRect(0, 0, bitmapData.width, bitmapData.height);
+			_shape.graphics.endFill();
+			addChild(_shape);
+			
+			bitmapData = null;
 			textField = null;
 			
 			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
@@ -52,19 +58,19 @@ package
 		
 		private function doTween():void 
 		{
-			var time:Number = (_bitmapWrapper.width + stage.stageWidth) / _speed;
+			var time:Number = (_shape.width + stage.stageWidth) / _speed;
 			var fromX:Number =  stage.stageWidth;
-			var toX:Number =  -_bitmapWrapper.width;
+			var toX:Number =  -_shape.width;
 			
-			TweenMax.fromTo(_bitmapWrapper, time, { x:fromX}, { x:toX, ease:Linear.ease } ).play().repeat(-1);
+			TweenMax.fromTo(_shape, time, { x:fromX}, { x:toX, ease:Linear.ease } ).play().repeat(-1);
 		}
 		
 		private function removedFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
 			TweenMax.killAll();
-			removeChild(_bitmapWrapper);
-			_bitmapWrapper = null;
+			removeChild(_shape);
+			_shape = null;
 		}
 		
 	}

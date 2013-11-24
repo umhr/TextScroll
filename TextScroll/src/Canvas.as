@@ -43,21 +43,23 @@ package
 			
 			new PushButton(this, 16, 150, "TextField.x by Enterframe", onPush).width = 200;
 			new PushButton(this, 16, 175, "TextField.x int by Enterframe", onPush).width = 200;
-			new PushButton(this, 16, 200, "Bitmap.x by Enterframe", onPush).width = 200;
-			new PushButton(this, 16, 225, "Bitmap.x int by Enterframe", onPush).width = 200;
-			new PushButton(this, 16, 250, "BitmapData.draw by Matrix", onPush).width = 200;
-			new PushButton(this, 16, 275, "BitmapData.draw int by Matrix", onPush).width = 200;
+			new PushButton(this, 16, 200, "Shape.x by Enterframe", onPush).width = 200;
+			new PushButton(this, 16, 225, "Shape.x int by Enterframe", onPush).width = 200;
+			new PushButton(this, 16, 250, "Bitmap.x by Enterframe", onPush).width = 200;
+			new PushButton(this, 16, 275, "Bitmap.x int by Enterframe", onPush).width = 200;
+			new PushButton(this, 16, 300, "BitmapData.draw by Matrix", onPush).width = 200;
+			new PushButton(this, 16, 325, "BitmapData.draw int by Matrix", onPush).width = 200;
 			
-			new PushButton(this, 16, 300, "Starling Image.x by Enterframe", onPush).width = 200;
-			new PushButton(this, 16, 325, "Starling Image.x int by Enterframe", onPush).width = 200;
+			new PushButton(this, 16, 350, "Starling Image.x by Enterframe", onPush).width = 200;
+			new PushButton(this, 16, 375, "Starling Image.x int by Enterframe", onPush).width = 200;
 			//new PushButton(this, 16, 250, "by ND2D", onPush).width = 200;
 			
-			new PushButton(this, 232, 150, "Bitmap.x by BetweenAS3", onPush).width = 200;
-			new PushButton(this, 232, 175, "Bitmap.x by Tween24", onPush).width = 200;
-			new PushButton(this, 232, 200, "Bitmap.x by TweenMax", onPush).width = 200;
-			new PushButton(this, 232, 225, "Bitmap.x by TweenMax useFrames", onPush).width = 200;
-			new PushButton(this, 232, 250, "Bitmap.x by Tweener", onPush).width = 200;
-			new PushButton(this, 232, 275, "Bitmap.x by Tweener useFrames", onPush).width = 200;
+			new PushButton(this, 232, 150, "Shape.x by BetweenAS3", onPush).width = 200;
+			new PushButton(this, 232, 175, "Shape.x by Tween24", onPush).width = 200;
+			new PushButton(this, 232, 200, "Shape.x by TweenMax", onPush).width = 200;
+			new PushButton(this, 232, 225, "Shape.x by TweenMax useFrames", onPush).width = 200;
+			new PushButton(this, 232, 250, "Shape.x by Tweener", onPush).width = 200;
+			new PushButton(this, 232, 275, "Shape.x by Tweener useFrames", onPush).width = 200;
 			
 			new Label(this, 448, 150, "Speed:").textField.textColor = 0xFFFFFF;
 			new NumericStepper(this, 498, 150, onSetSpeed).value = 200;
@@ -77,10 +79,10 @@ package
 		
 		private var _typeCount:int = 0;
 		private var _typeList:Array/*String*/ = [
-			"TextField.x by Enterframe", "TextField.x int by Enterframe", "Bitmap.x by Enterframe", "Bitmap.x int by Enterframe",
+			"TextField.x by Enterframe", "TextField.x int by Enterframe", "Shape.x by Enterframe", "Shape.x int by Enterframe", "Bitmap.x by Enterframe", "Bitmap.x int by Enterframe",
 			"BitmapData.draw by Matrix", "BitmapData.draw int by Matrix", "Starling Image.x by Enterframe", "Starling Image.x int by Enterframe",
-			"Bitmap.x by BetweenAS3", "Bitmap.x by Tween24", "Bitmap.x by TweenMax", "Bitmap.x by TweenMax useFrames",
-			"Bitmap.x by Tweener", "Bitmap.x by Tweener useFrames"];
+			"Shape.x by BetweenAS3", "Shape.x by Tween24", "Shape.x by TweenMax", "Shape.x by TweenMax useFrames",
+			"Shape.x by Tweener", "Shape.x by Tweener useFrames"];
 			
 		private function keyUp(e:KeyboardEvent):void 
 		{
@@ -168,6 +170,12 @@ package
 				case "TextField.x int by Enterframe":
 					_scrollStage.addChild(new ByEnterFrame(_speed, true));
 				break;
+				case "Shape.x by Enterframe":
+					_scrollStage.addChild(new ByShape(_speed, false));
+				break;
+				case "Shape.x int by Enterframe":
+					_scrollStage.addChild(new ByShape(_speed, true));
+				break;
 				case "Bitmap.x by Enterframe":
 					_scrollStage.addChild(new ByBitmap(_speed, false));
 				break;
@@ -189,22 +197,22 @@ package
 				case "by ND2D":
 					_scrollStage.addChild(new ByND2D(_speed));
 				break;
-				case "Bitmap.x by BetweenAS3":
+				case "Shape.x by BetweenAS3":
 					_scrollStage.addChild(new ByBetweenAS3(_speed));
 				break;
-				case "Bitmap.x by Tween24":
+				case "Shape.x by Tween24":
 					_scrollStage.addChild(new ByTween24(_speed));
 				break;
-				case "Bitmap.x by TweenMax":
+				case "Shape.x by TweenMax":
 					_scrollStage.addChild(new ByTweenMax(_speed));
 				break;
-				case "Bitmap.x by TweenMax useFrames":
+				case "Shape.x by TweenMax useFrames":
 					_scrollStage.addChild(new ByTweenMax_useFrames(_speed));
 				break;
-				case "Bitmap.x by Tweener":
+				case "Shape.x by Tweener":
 					_scrollStage.addChild(new ByTweener(_speed));
 				break;
-				case "Bitmap.x by Tweener useFrames":
+				case "Shape.x by Tweener useFrames":
 					_scrollStage.addChild(new ByTweener_useFrames(_speed));
 				break;
 				default:

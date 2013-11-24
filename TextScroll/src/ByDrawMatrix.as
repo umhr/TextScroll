@@ -47,7 +47,7 @@ package
 			_textField.cacheAsBitmap = true;
 			_txInt = _txNumber = stage.stageWidth;
 			
-			_bitmap = new Bitmap(new BitmapData(stage.stageWidth, _textField.height, false, 0x00000000), PixelSnapping.NEVER);
+			_bitmap = new Bitmap(new BitmapData(stage.stageWidth, _textField.height, false, 0x00000000), PixelSnapping.NEVER, true);
 			addChild(_bitmap);
 			
 			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);

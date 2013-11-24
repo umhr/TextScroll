@@ -2,8 +2,8 @@ package
 {
 	
 	import caurina.transitions.Tweener;
-	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
@@ -14,7 +14,7 @@ package
 	 */
 	public class ByTweener_useFrames extends Sprite 
 	{
-		private var _bitmapWrapper:Bitmap;
+		private var _shape:Shape;
 		private var _speed:Number;
 		public function ByTweener_useFrames(speed:Number) 
 		{
@@ -38,9 +38,16 @@ package
 			textField.embedFonts = true;
 			textField.width = textField.textWidth;
 			
-			_bitmapWrapper = new Bitmap(new BitmapData(textField.width, textField.height, false, 0x00000000));
-			_bitmapWrapper.bitmapData.draw(textField);
-			addChild(_bitmapWrapper);
+			var bitmapData:BitmapData = new BitmapData(textField.width, textField.height, false, 0x00000000);
+			bitmapData.draw(textField);
+			
+			_shape = new Shape();
+			_shape.graphics.beginBitmapFill(bitmapData, null, false, true);
+			_shape.graphics.drawRect(0, 0, bitmapData.width, bitmapData.height);
+			_shape.graphics.endFill();
+			addChild(_shape);
+			
+			bitmapData = null;
 			textField = null;
 			
 			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
@@ -50,19 +57,19 @@ package
 		
 		private function doTween():void 
 		{
-			var time:Number = stage.frameRate * (_bitmapWrapper.width + stage.stageWidth) / _speed;
+			var time:Number = stage.frameRate * (_shape.width + stage.stageWidth) / _speed;
 			var fromX:Number =  stage.stageWidth;
-			var toX:Number =  -_bitmapWrapper.width;
-			_bitmapWrapper.x = fromX;
-			Tweener.addTween(_bitmapWrapper, {x:toX, time:time, transition:"linear",  useFrames:true, onComplete:doTween} );
+			var toX:Number =  -_shape.width;
+			_shape.x = fromX;
+			Tweener.addTween(_shape, {x:toX, time:time, transition:"linear",  useFrames:true, onComplete:doTween} );
 		}
 		
 		private function removedFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStage);
 			Tweener.removeAllTweens();
-			removeChild(_bitmapWrapper);
-			_bitmapWrapper = null;
+			removeChild(_shape);
+			_shape = null;
 		}
 		
 	}

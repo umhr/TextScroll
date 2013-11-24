@@ -3,6 +3,7 @@ package
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.PixelSnapping;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
@@ -42,7 +43,7 @@ package
 			textField.embedFonts = true;
 			textField.width = textField.textWidth;
 			
-			_bitmap = new Bitmap(new BitmapData(textField.width, textField.height, false, 0x00000000));
+			_bitmap = new Bitmap(new BitmapData(textField.width, textField.height, false, 0x00000000), PixelSnapping.NEVER, true);
 			_bitmap.bitmapData.draw(textField);
 			_bitmap.x = _txInt;
 			addChild(_bitmap);
